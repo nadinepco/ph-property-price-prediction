@@ -5,3 +5,8 @@ seaborn
 matplotlib
 scipy
 scikit-learn
+streamlit
+psycopg2
+forex-python
+streamlit_folium
+plotly.express
