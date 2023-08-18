@@ -1,4 +1,6 @@
 import random
+import pickle
+import locale
 
 
 def get_header():
@@ -53,3 +55,11 @@ def read_file(filename):
     with open(filename, "r") as f:
         file_content = f.read()
     return file_content
+
+
+def formatPrice(price):
+    """Format price to add commas and currency symbol
+    :param price: price to be formatted
+    :return: formatted price
+    """
+    return "₱" + "{:,.0f}".format(price)
