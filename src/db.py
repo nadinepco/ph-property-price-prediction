@@ -11,7 +11,6 @@ from io import BytesIO
 load_dotenv()
 
 logger = logging.getLogger(__name__)
-# logger.setLevel(logging.INFO)
 
 
 class Database:
@@ -61,22 +60,9 @@ class Database:
         :return: List of cities
         """
         logger.info("Getting cities...")
-        # if there's no selected region, then get all cities
-        # if region == -1:
         _self.cursor.execute(
             "SELECT region_id, city_id, city_name FROM city ORDER BY city_name"
         )
-        # else:
-        #     _self.cursor.execute(
-        #         """SELECT DISTINCT city.city_name
-        #             FROM city
-        #             INNER JOIN listing ON city.city_id = listing.city_id
-        #             WHERE listing.region_id =
-        #             (SELECT region_id FROM region WHERE region_name LIKE %s)
-        #             ORDER BY city_name""",
-        #         (region,),
-        #     )
-        # return [row[0] for row in _self.cursor.fetchall()]
         return pd.DataFrame(
             _self.cursor.fetchall(), columns=["region_id", "city_id", "city_name"]
         )

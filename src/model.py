@@ -18,17 +18,23 @@ class HousePricePredictor:
         return model
 
     def predict_price(self, bedrooms, floor_area, lot_area, city, region):
-        # Perform any necessary preprocessing on input features
-        # For example, you might need to convert categorical variables to numerical format
-        # Implement any other preprocessing steps needed
+        """Predict the price of a house given the input features
+        :param bedrooms: Number of bedrooms
+        :param floor_area: Floor area in square meters
+        :param lot_area: Lot area in square meters
+        :param city: City
+        :param region: Region
+        :return: Predicted price
+        """
 
         # Prepare the input features for prediction
-        input_features = [[floor_area, lot_area, city, region, bedrooms]]
+        input_features = [[floor_area, lot_area, bedrooms, city, region]]
         logging.info(f"Input features: {input_features}")
         input_df = pd.DataFrame(
             input_features,
-            columns=["Floor Area", "Lot Area", "Town/City", "Region", "Bedrooms"],
+            columns=["Floor Area", "Lot Area", "Bedrooms", "Town/City", "Region"],
         )
+        logging.info(f"Input dataframe: {input_df}")
 
         # Make the prediction using your model
         predicted_price_log = self.model.predict(input_df)
@@ -36,5 +42,3 @@ class HousePricePredictor:
         predicted_price = np.exp(predicted_price_log) - 1
         logging.info(f"Predicted price: {predicted_price[0]}")
         return predicted_price[0].astype(int)
-
-    # You can add more methods here as needed for model evaluation, feature importance, etc.

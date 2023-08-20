@@ -1,6 +1,6 @@
 import random
-import pickle
-import locale
+from forex_python.converter import CurrencyRates
+import logging
 
 
 def get_header():
@@ -57,9 +57,52 @@ def read_file(filename):
     return file_content
 
 
-def formatPrice(price):
+def formatPrice(price, currency):
     """Format price to add commas and currency symbol
     :param price: price to be formatted
     :return: formatted price
     """
-    return "₱" + "{:,.0f}".format(price)
+    c = CurrencyRates()
+    if currency == "EUR":
+        return "€" + "{:,.0f}".format(price)
+    elif currency == "PHP":
+        return "₱" + "{:,.0f}".format(price)
+
+
+# def convert_currency(df, new_currency):
+#     c = CurrencyRates()
+#     if new_currency == "EUR":
+#         df["price"] = df["price"].apply(lambda x: c.convert("PHP", "EUR", x))
+#     elif new_currency == "PHP":
+#         df["price"] = df["price"].apply(lambda x: c.convert("EUR", "PHP", x))
+#     return df
+
+
+def add_eur_price(df):
+    c = CurrencyRates()
+    # get the conversion
+    conversion = c.get_rate("PHP", "EUR")
+    logging.info(f"Conversion rate: {conversion}")
+
+    df["price_eur"] = df["price"] * conversion
+    df["price_per_sqm_eur"] = df["price_per_sqm"] * conversion
+    return df
+
+
+def convert_to_eur(price):
+    logging.info("Converting currency")
+    c = CurrencyRates()
+    return c.convert("PHP", "EUR", price)
+
+
+def update_currency(sel_currency):
+    if sel_currency == "PHP":
+        currency = "PHP"
+        price_col = "price"
+        price_sqm = "price_per_sqm"
+    else:
+        currency = "EUR"
+        price_col = "price_eur"
+        price_sqm = "price_per_sqm_eur"
+
+    return currency, price_col, price_sqm
