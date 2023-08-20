@@ -203,9 +203,8 @@ def handle_currency_change():
 #################################################################
 def main():
     initialize()
-
-    st.title("Philippine House Price Estimator")
-    st.markdown("#### How much should it cost?")
+    st.title("*SPICEstimate* - Philippines House Price Estimator")
+    st.markdown("#### Is the Price right? *Enter the details to find out!*")
     st.write(
         "Use SPICEstimate to get an instant home-value estimate and see nearby sales."
     )

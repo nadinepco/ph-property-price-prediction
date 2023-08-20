@@ -6,7 +6,6 @@ import plotly.express as px
 import numpy as np
 import geopandas as gpd
 import logging
-from utils import update_currency
 from Home import handle_currency_change
 
 sns.set(style="whitegrid")
