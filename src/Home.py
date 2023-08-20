@@ -11,8 +11,6 @@ st.set_page_config(
 from db import Database
 from model import HousePricePredictor
 
-import seaborn as sns
-import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.express as px
 
@@ -182,20 +180,13 @@ def handle_btn_estimate():
 
 
 def handle_currency_change():
+    """Handle the currency change"""
     logging.info("Handling currency change")
     (
         st.session_state.currency,
         st.session_state.price_col,
         st.session_state.price_sqm,
     ) = update_currency(st.session_state.sel_currency)
-    # if st.session_state.sel_currency == "PHP":
-    #     st.session_state.currency = "PHP"
-    #     st.session_state.price_col = "price"
-    #     st.session_state.price_sqm = "price_per_sqm"
-    # else:
-    #     st.session_state.currency = "EUR"
-    #     st.session_state.price_col = "price_eur"
-    #     st.session_state.price_sqm = "price_per_sqm_eur"
 
 
 #################################################################

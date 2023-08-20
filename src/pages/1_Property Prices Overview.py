@@ -1,14 +1,6 @@
 import streamlit as st
-import seaborn as sns
-import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.express as px
-import numpy as np
-import geopandas as gpd
-import logging
 from Home import handle_currency_change
-
-sns.set(style="whitegrid")
 
 
 @st.cache_data
@@ -17,15 +9,6 @@ def session_state_listings():
     df.reset_index(inplace=True)
     df["price_per_sqm"] = df["price"] / df["lot_area"]
     return df
-
-
-# def handle_currency_change():
-#     logging.info("Handling currency change")
-#     (
-#         st.session_state.currency,
-#         st.session_state.price_col,
-#         st.session_state.price_sqm,
-#     ) = update_currency(st.session_state.sel_currency)
 
 
 def main():
@@ -50,6 +33,8 @@ def main():
                 y=st.session_state.price_col,
                 title="Median Prices by Region",
                 width=550,
+                color="region_name",
+                color_discrete_sequence=px.colors.qualitative.Prism,
             )
             region_fig.update_yaxes(title_text="Price in " + st.session_state.currency)
             region_fig.update_xaxes(title_text="Region")
@@ -63,13 +48,15 @@ def main():
                 .reset_index()
             )
 
-            # Create the initial bar chart for average prices per region
+            # Create the initial bar chart for average prices per sqm per region
             region_fig2 = px.bar(
                 median_price_per_sqm_region,
                 x="region_name",
                 y=st.session_state.price_sqm,
                 title="Median Prices per sqm by Region",
                 width=550,
+                color="region_name",
+                color_discrete_sequence=px.colors.qualitative.Prism,
             )
             region_fig2.update_yaxes(title_text="Price in " + st.session_state.currency)
             region_fig2.update_xaxes(title_text="Region")
@@ -99,6 +86,8 @@ def main():
                     y=st.session_state.price_col,
                     title=f"Median Prices in {selectbox_city_avg_price}",
                     width=550,
+                    color="city_name",
+                    color_discrete_sequence=px.colors.qualitative.Prism,
                 )
                 city_fig.update_yaxes(
                     title_text="Price in " + st.session_state.currency
@@ -119,6 +108,8 @@ def main():
                     y=st.session_state.price_sqm,
                     title=f"Median Prices per sqm in {selectbox_city_avg_price}",
                     width=550,
+                    color="city_name",
+                    color_discrete_sequence=px.colors.qualitative.Prism,
                 )
                 city_fig2.update_yaxes(
                     title_text="Price in " + st.session_state.currency

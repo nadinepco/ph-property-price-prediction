@@ -1,6 +1,5 @@
 import streamlit as st
 import plotly.express as px
-import logging
 from Home import handle_currency_change
 
 # from utils import update_currency
@@ -12,15 +11,6 @@ def session_state_listings():
     df.reset_index(inplace=True)
     df["price_per_sqm"] = df["price"] / df["lot_area"]
     return df
-
-
-# def handle_currency_change():
-#     logging.info("Handling currency change")
-#     (
-#         st.session_state.currency,
-#         st.session_state.price_col,
-#         st.session_state.price_sqm,
-#     ) = update_currency(st.session_state.sel_currency)
 
 
 def main():
