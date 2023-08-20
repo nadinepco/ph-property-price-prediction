@@ -20,6 +20,7 @@ import folium
 from folium.plugins import MarkerCluster
 from streamlit_folium import folium_static
 import time
+import os
 
 import logging
 from utils import formatPrice, convert_to_eur, add_eur_price, update_currency
@@ -63,7 +64,8 @@ def load_classes():
     :return: Database and HousePricePredictor class
     """
     logging.info("Instantiating Database and HousePricePredictor classes...")
-    model_path = "../models/rf_model.pkl"
+    model_path = os.path.join(os.path.dirname(__file__), "../models/rf_model.pkl")
+
     db = Database()
     model = HousePricePredictor(model_path)
     return db, model
@@ -284,7 +286,7 @@ def main():
                 #################################################################
                 ###                Display Map of listings                    ###
                 #################################################################
-                st.markdown("##### Related Listings")
+                st.markdown("##### Map View of Listings in the area")
                 df_map = st.session_state.filtered_listings_df[
                     [
                         "latitude",
