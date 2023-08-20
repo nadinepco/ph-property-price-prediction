@@ -32,9 +32,9 @@ def main():
     logging.info(st.session_state.price_sqm)
     st.title("Detailed Price Insights")
 
-    price_tab, price_per_sqm_tab = st.tabs(["Price", "Price per sqm"])
+    region_tab, city_tab = st.tabs(["Region", "City"])
 
-    with price_tab:
+    with region_tab:
         region_fig = px.box(
             df,
             x="region_name",
@@ -63,7 +63,7 @@ def main():
         region_fig2.update_xaxes(title_text="Region")
         st.plotly_chart(region_fig2)
 
-    with price_per_sqm_tab:
+    with city_tab:
         city_fig = px.box(
             df,
             x="city_name",

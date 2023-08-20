@@ -11,3 +11,4 @@ forex-python
 streamlit_folium
 plotly.express
 python-dotenv
+geopandas
