@@ -1,7 +1,4 @@
 import streamlit as st
-import plotly.express as px
-from utils import formatPrice
-from Home import handle_currency_change, initialize
 
 # Set page config
 st.set_page_config(
@@ -10,6 +7,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+import plotly.express as px
+from utils import formatPrice
+from Home import handle_currency_change, initialize
 
 
 @st.cache_data

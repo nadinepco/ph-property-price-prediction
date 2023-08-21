@@ -1,8 +1,4 @@
 import streamlit as st
-import plotly.express as px
-import logging
-from Home import handle_currency_change, initialize
-import pandas as pd
 
 # Set page config
 st.set_page_config(
@@ -11,6 +7,11 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed",
 )
+
+import plotly.express as px
+import logging
+from Home import handle_currency_change, initialize
+import pandas as pd
 
 
 @st.cache_data
