@@ -1,12 +1,4 @@
 import streamlit as st
-
-# Set page config
-st.set_page_config(
-    page_title="SPICEstimate",
-    page_icon="📍",
-    layout="wide",
-    initial_sidebar_state="collapsed",
-)
 import plotly.express as px
 from utils import formatPrice
 from Home import handle_currency_change, initialize
