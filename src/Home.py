@@ -22,10 +22,7 @@ import os
 
 import logging
 from utils import formatPrice, convert_to_eur, add_eur_price, update_currency
-import warnings
 
-# Set warning display to show the complete message
-warnings.filterwarnings("always", category=UserWarning)
 logging.basicConfig(level=logging.INFO)
 
 # Define CSS to style the property container

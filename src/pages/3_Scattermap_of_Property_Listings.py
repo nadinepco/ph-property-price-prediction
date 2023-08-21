@@ -1,8 +1,15 @@
 import streamlit as st
 import plotly.express as px
-from Home import handle_currency_change
+from utils import formatPrice
+from Home import handle_currency_change, initialize
 
-# from utils import update_currency
+# Set page config
+st.set_page_config(
+    page_title="SPICEstimate",
+    page_icon="📍",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 
 @st.cache_data
@@ -32,20 +39,20 @@ def main():
         zoom=10,
         center={"lat": df["latitude"].mean(), "lon": df["longitude"].mean()},
         mapbox_style="carto-positron",
-        # title="Scattermap with Color-coded Markers by city_name",
+        color_discrete_sequence=px.colors.qualitative.Prism,
         width=1000,
         height=600,
     )
 
     # Add a heatmap layer based on the price per location
-    scattermap.add_densitymapbox(
-        lat=df["latitude"],
-        lon=df["longitude"],
-        z=df[st.session_state.price_sqm],
-        radius=15,
-        colorscale="Viridis",
-        showscale=False,
-    )
+    # scattermap.add_densitymapbox(
+    #     lat=df["latitude"],
+    #     lon=df["longitude"],
+    #     z=df[st.session_state.price_sqm],
+    #     radius=10,
+    #     colorscale="Viridis",
+    #     showscale=False,
+    # )
 
     # Show the plot
     scattermap.update_layout(margin={"r": 0, "t": 40, "l": 0, "b": 0})
@@ -53,6 +60,7 @@ def main():
 
 
 if __name__ == "__main__":
+    initialize()
     main()
     with st.sidebar:
         st.title("SPICEstimate")

@@ -1,6 +1,14 @@
 import streamlit as st
 import plotly.express as px
-from Home import handle_currency_change
+from Home import handle_currency_change, initialize
+
+# Set page config
+st.set_page_config(
+    page_title="SPICEstimate",
+    page_icon="📊",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 
 @st.cache_data
@@ -119,6 +127,7 @@ def main():
 
 
 if __name__ == "__main__":
+    initialize()
     main()
     with st.sidebar:
         st.title("SPICEstimate")
