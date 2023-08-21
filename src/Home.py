@@ -143,6 +143,16 @@ def initialize():
         st.session_state.price_sqm = "price_per_sqm"
 
 
+def get_color(price, estimated_price):
+    """Get the color of the price based on the estimated price"""
+    if price > estimated_price:
+        return "red"
+    elif price < estimated_price:
+        return "green"
+    else:
+        return "blue"
+
+
 #################################################################
 ###                     Action Handlers                       ###
 #################################################################
@@ -300,12 +310,14 @@ def main():
 
                 # Add markers to the marker cluster
                 for index, row in df_map.iterrows():
+                    color = get_color(row[st.session_state.price_col], predicted_price)
                     folium.Marker(
                         location=[row["latitude"], row["longitude"]],
                         popup=f"<a href='{row['link']}' target='_blank'>{row['title']}</a>",
                         tooltip=formatPrice(
                             row[st.session_state.price_col], st.session_state.currency
                         ),
+                        icon=folium.Icon(color=color, icon="location-dot", prefix="fa"),
                     ).add_to(marker_cluster)
 
                 # Display the folium map using folium_static
